@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+  <link rel="stylesheet" href="webjars/bootstrap/4.6.0/css/bootstrap.min.css">
+  <script src="webjars/bootstrap/4.6.0/js/bootstrap.min.js"></script>
+  <meta charset="UTF-8">
+  <title>Bank Manager</title>
+
+<body>
+<h1 class="text-info">Bank accounts</h1>
+<table class="table table-hover" th:if="${!bankAccounts.isEmpty()}">
+  <thead>
+  <tr>
+    <th >ID</th>
+    <th >Balance</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody>
+
+  <tr th:each="bankAccount : ${bankAccounts}">
+    <td th:text="${bankAccount.id}"></td>
+    <td th:text="${bankAccount.balance}"></td>
+    <td><a th:style="${isHighlighted} ? 'color: red; font-weight: bold;' : 'color: green;'" th:href="@{/deposit/{id}(id=${bankAccount.id})}">Deposit</a></td>
+
+    <td><a th:style="${isHighlighted} ? 'color: red; font-weight: bold;' : 'color: red;'" th:href="@{/withdraw/{id}(id=${bankAccount.id})}">Withdraw</a></td>
+
+    <td><a th:style="${isHighlighted} ? 'color: red; font-weight: bold;' : 'color: blue;'" th:href="@{/delete/{id}(id=${bankAccount.id})}">Delete</a></td>
+  </tr>
+
+  </tbody>
+</table>
+<div th:if="${bankAccounts.isEmpty()}">
+  No Bank Accounts yet
+</div>
+<br>
+<a class="d-inline p-2 bg-primary text-white" href="/add">Create a new Bank Account</a>
+</body>
+</html>
